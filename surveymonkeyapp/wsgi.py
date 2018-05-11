@@ -1,5 +1,5 @@
 """
-WSGI config for surveymonkey project.
+WSGI config for surveymonkeyapp project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
