@@ -51,7 +51,6 @@ USER_WORKGROUP_ENDPOINT = "/v3/users/user_id=%s/workgroups"
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'web.apps.WebConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
