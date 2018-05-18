@@ -26,6 +26,7 @@ def redirectToYellowAntAuthenticationPage(request):
 
 
 def yellowantRedirecturl(request):
+    print("In yellowantRedirecturl")
     #print('It is here')
     code = request.GET.get('code')
     #print(code)
@@ -41,19 +42,33 @@ def yellowantRedirecturl(request):
     yellowant_user = YellowAnt(access_token=access_token)
     profile = yellowant_user.get_user_profile()
     user_integration = yellowant_user.create_user_integration()
+    print("User integration is")
+    print(user_integration)
     hash_str = str(uuid.uuid4()).replace("-","")[:25]
 
-    ut = YellowUserToken.objects.create(user = user, yellowant_token = access_token, yellowant_id = profile['id'], yellowant_intergration_id = user_integration['user_application'], webhook_id=hash_str)
+    ut = YellowUserToken.objects.create(user = user, yellowant_token = access_token, yellowant_id = profile['id'], yellowant_integration_invoke_name = user_integration["user_invoke_name"], yellowant_intergration_id = user_integration['user_application'], webhook_id=hash_str)
+    return HttpResponseRedirect("/integrate_app?id={}".format(str(ut.id)))
+
+def integrate_app_account(request):
+    print("In integrate_app_account")
+    ut_id = request.GET.get("id")
+    print(ut_id)
+    ut = YellowUserToken.objects.get(id = ut_id)
     state = str(uuid.uuid4())
     AppRedirectState.objects.create(user_integration = ut, state = state)
 
     url = ('{}?state={}&response_type=code&client_id={}&redirect_uri={}'.format(settings.SURVEYMONKEY_OUTH_URL, state, settings.SURVEYMONKEY_CLIENT_ID,settings.SURVEYMONKEY_REDIRECT_URL))
+    print("exiting yellowantRedirecturl")
     return HttpResponseRedirect(url)
 
 
 def surveymonkeyRedirecturl(request):
     code = request.GET.get("code", False)
+    print(code)
+    print("In surveymonkeyRedirecturl")
+    print('sdss')
     state = request.GET.get("state")
+    print(state)
     surveymonkey_redirect_state = AppRedirectState.objects.get(state = state)
     ut = surveymonkey_redirect_state.user_integration
 
@@ -95,7 +110,7 @@ def surveymonkeyRedirecturl(request):
 	    "event_type": "response_completed",
 	    "object_type": "survey",
 	    "object_ids": surveys_to_enable,
-	    "subscription_url": "http://38f456dc.ngrok.io/webhook_receiver/webhook_receiver/%s/"%(ut.webhook_id)
+	    "subscription_url": "{}/webhook_receiver/webhook_receiver/{}/".format(settings.BASE_URL,ut.webhook_id)
         }
 
         url = "https://api.surveymonkey.com/v3/webhooks"

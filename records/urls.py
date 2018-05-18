@@ -4,6 +4,7 @@ from records.views import surveymonkeyRedirecturl, redirectToYellowAntAuthentica
 from django.conf.urls import url
 
 urlpatterns = [
+    path("create-new-integration/", redirectToYellowAntAuthenticationPage, name="surveymonkey-auth-redirect"),
     path("redirecturl/", surveymonkeyRedirecturl, name="surveymonkey-auth-redirect"),
     path("yellowantredirecturl/", yellowantRedirecturl, name="yellowant-auth-redirect"),
     path("yellowantauthurl/", redirectToYellowAntAuthenticationPage, name="yellowant-auth-url"),

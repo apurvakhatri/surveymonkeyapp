@@ -42,12 +42,13 @@ class CommandCenter(object):
             "Authorization" :"bearer %s" %(self.surveymonkey_access_token) ,
             "Content-Type": "application/json"
         }
-        if self.user_integration.webhook_last_updated + datetime.timedelta(days=1) > pytz.utc.localize(datetime.datetime.utcnow()):
+        if self.user_integration.webhook_last_updated + datetime.timedelta(days=1) < pytz.utc.localize(datetime.datetime.utcnow()):
             self.RefreshWebhooks()
 
         return self.commands[self.function_name](self.args)
 
     def AccountDetails(self,args):
+        print("In account details")
 
         data = {}
 
@@ -498,6 +499,7 @@ class CommandCenter(object):
         return ("Hey")
 
     def RefreshWebhooks(self):
+        print("In RefreshWebhooks")
         self.user_integration.webhook_last_updated = datetime.datetime.utcnow()
         self.user_integration.save()
 
@@ -509,18 +511,17 @@ class CommandCenter(object):
             "Content-Type": "application/json"
         }
 
-        url = (settings.SM_API_BASE + VIEW_SURVEY)
+        url = (settings.SM_API_BASE + settings.VIEW_SURVEY)
         response = requests.get(url, headers = headers)
         response_json = response.json()
         surveys_data = response_json["data"]
 
-        url = (SM_API_BASE + VIEW_WEBHOOKS)
+        url = (settings.SM_API_BASE + settings.VIEW_WEBHOOKS)
         response = requests.get(url, headers = headers)
         response_json = response.json()
         webhooks_data = response_json["data"]
 
         surveys_webhooks_enabled = []
-        print(webhooks_data[0]['data'])
 
         for wh in webhooks_data['data']:
             surveys_webhooks_enabled += wh['object_ids']

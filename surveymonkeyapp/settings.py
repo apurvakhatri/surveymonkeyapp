@@ -21,23 +21,24 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '($g%68la(r_u!0i9h^=cv^e(3$2tj^tp_#%s$mwu7@3vhxzq%o'
+SECRET_KEY =os.environ.get('SECRET_KEY')
+#'($g%68la(r_u!0i9h^=cv^e(3$2tj^tp_#%s$mwu7@3vhxzq%o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = ['*']
+BASE_URL = "http://0fcc4b1f.ngrok.io"
+ALLOWED_HOSTS = ['*','https://surveymonkeyapp.herokuapp.com/']
 SURVEYMONKEY_OUTH_URL = "https://api.surveymonkey.com/oauth/authorize/"
 SURVEYMONKEY_CLIENT_ID = "lkE_cJOzRV6j0B9bPLaJug"
 SURVEYMONKEY_CLIENT_SECRET = "65085943951230993449921484314018791204"
 SURVEYMONKEY_VERIFICATION_TOKEN = "pd45cmph4w8I7hrPUIUPin5-u9vMuWm1PDChgAoHQkTyHndCqtT3224Rcn1582NIqaJNNdIDsByaJOFXojIbXKwFkp35e5yFdhCSHefGfoFgukpxrNsIjVakiSXvxmLk"
-SURVEYMONKEY_REDIRECT_URL = "http://56317719.ngrok.io/redirecturl/redirecturl/"
+SURVEYMONKEY_REDIRECT_URL = BASE_URL + "/redirecturl/redirecturl/"
 
 YELLOWANT_OAUTH_URL = "https://www.yellowant.com/api/oauth2/authorize/"
 YELLOWANT_CLIENT_ID = "3oMAtrDLNeCqNeRS3qclc4TUGo8PnWGZojUyeFw5"
 YELLOWANT_CLIENT_SECRET = "yvWK2qrng9jGrMNQIfzgglxFGijwoiW7AEIw0LTyXyjbFuof2iwRRExbYnB3IjrTZTUlnXD3NO02UCFdbb4l7kDSdVO3lT6ne4aPL4RyzQ8iohB8NUSki6t2hQkEmWC1"
 YELLOWANT_VERIFICATION_TOKEN = "Ce3dZYWO2cnXT8PI0ney1mSNz4QOwPr8HqVOjNORqBJvFz9OiRYdmsmiPvjLoXhuUdJ6CiHU909jJoLcjeOr2zL9RQ8nIWGVzM1ZEig3ySTRIWpLu4Z2CBU1Z1VJIoaw"
-YELLOWANT_REDIRECT_URL = "http://56317719.ngrok.io/redirecturl/yellowantredirecturl/"
+YELLOWANT_REDIRECT_URL = BASE_URL + "/redirecturl/yellowantredirecturl/"
 # Application definition
 
 SM_API_BASE = "https://api.surveymonkey.com"
@@ -52,14 +53,13 @@ USER_WORKGROUP_ENDPOINT = "/v3/users/user_id=%s/workgroups"
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'web.apps.WebConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'records.apps.RecordsConfig',
-
+    'web.apps.WebConfig'
 
 ]
 
@@ -100,14 +100,17 @@ WSGI_APPLICATION = 'surveymonkeyapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'surveymonkey',
+        'NAME': 'surveymonkey2',
         'USER': 'root',
         'PASSWORD': 'khatri@19',
         'HOST': 'localhost',
         'PORT': '',
     }
 }
-
+import dj_database_url
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+DATABASES['default']['CONN_MAX_AGE'] = 500
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators

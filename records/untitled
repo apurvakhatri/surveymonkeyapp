@@ -1,0 +1,26 @@
+ng-if = "$ctrl.stateDetails(account.id)"
+
+
+function getStateDetails(id){
+    return https.get(endpoint.userAccounts() + id + 'state/')
+}
+
+getStateDetails : getStateDetails
+
+stateDetails(id){
+  this.AppApi.getStateDetails(id)
+    .then((successResponse)) => {
+      this.userStates = successResponse.data;
+    },(errorResponse)=>{
+      this.userStates =null;
+    });
+}
+
+path('user/<int:id>/state/', stateDetails, name = "home")
+
+def stateDetails(request, id=None):
+    print("In stateDetails")
+    print(id)
+    app_redirect_details = AppRedirectState.objects.get(user_integration = id)
+    state = app_redirect_details.state
+    print(state)
