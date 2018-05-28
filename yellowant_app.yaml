@@ -1,0 +1,306 @@
+api_url: https://smtest111.herokuapp.com/yellowantauthurl/yellowant-api/
+creator_email: apurvakhatri2011@gmail.com
+documentation_url: http://yellowant.com/docs
+functions:
+  AccountDetails:
+    function_type: 1
+    input_args: {}
+    invoke_name: AccountDetails
+    is_active: 1
+    max_retries: 0
+    name: Account Details
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Gives the account details
+    user_rate_limit: 0.0
+  Collector:
+    function_type: 1
+    input_args:
+      CollectorId:
+        arg_type: 14
+        description: Collector id
+        example: '1234'
+        name: CollectorId
+        required: 1
+    invoke_name: Collector
+    is_active: 1
+    max_retries: 0
+    name: Collector
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Collector id
+    user_rate_limit: 0.0
+  CollectorsAvailable:
+    function_type: 1
+    input_args:
+      SurveyId:
+        arg_type: 14
+        description: The id of the required survey
+        example: '1234'
+        name: SurveyId
+        required: 1
+    invoke_name: CollectorsAvailable
+    is_active: 1
+    max_retries: 0
+    name: Collectors Available
+    output_keys:
+      _keys:
+        collectors: '[collectors]: List of Collectors'
+      collectors:
+        id: '__unicode: Collectors id'
+        name: '__unicode: Collectors name'
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Returns a list of collectors for a given survey.
+    user_rate_limit: 0.0
+  ContactListDetails:
+    function_type: 1
+    input_args:
+      ContactListId:
+        arg_type: 14
+        description: Id of the contact list
+        example: '1234'
+        name: ContactListId
+        required: 1
+    invoke_name: ContactListDetails
+    is_active: 1
+    max_retries: 0
+    name: Contact List Details
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Returns the details of the contact list
+    user_rate_limit: 0.0
+  ContactLists:
+    function_type: 1
+    input_args: {}
+    invoke_name: ContactLists
+    is_active: 1
+    max_retries: 0
+    name: Contact Lists
+    output_keys:
+      _keys:
+        list: '[list]: List of List'
+      list:
+        id: '__unicode: List id'
+        name: '__unicode: List name'
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Returns the list of contacts.
+    user_rate_limit: 0.0
+  ResponseCompletedWebhook:
+    function_type: 2
+    input_args: {}
+    invoke_name: ResponseCompletedWebhook
+    is_active: 1
+    max_retries: 0
+    name: Response Completed Webhook
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Triggers a notification whenever a survey is filled.
+    user_rate_limit: 0.0
+  SurveyCategory:
+    function_type: 1
+    input_args: {}
+    invoke_name: SurveyCategory
+    is_active: 1
+    max_retries: 0
+    name: Survey Category
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Returns a list of survey categories that can be used to filter
+      survey templates.
+    user_rate_limit: 0.0
+  SurveyLangAvailable:
+    function_type: 1
+    input_args:
+      Survey-ID:
+        arg_type: 14
+        description: ID of the survey
+        example: '1234'
+        name: Survey-ID
+        required: 1
+    invoke_name: SurveyLangAvailable
+    is_active: 1
+    max_retries: 0
+    name: Survey Languages Available
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Get all available languages and their codes
+    user_rate_limit: 0.0
+  SurveyTemplates:
+    function_type: 1
+    input_args: {}
+    invoke_name: SurveyTemplates
+    is_active: 1
+    max_retries: 0
+    name: Survey Templates
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Returns a list of survey templates.
+    user_rate_limit: 0.0
+  ViewAllContacts:
+    function_type: 1
+    input_args: {}
+    invoke_name: ViewAllContacts
+    is_active: 1
+    max_retries: 0
+    name: View all contacts
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Displays all contacts with a list of all available fields
+    user_rate_limit: 0.0
+  ViewSurveyDetails:
+    function_type: 1
+    input_args:
+      SurveyId:
+        arg_type: 14
+        description: Id of the required survey
+        example: '1234'
+        name: SurveyId
+        required: 1
+    invoke_name: ViewSurveyDetails
+    is_active: 1
+    max_retries: 0
+    name: Survey Details
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Returns some survey details
+    user_rate_limit: 0.0
+  ViewSurveys:
+    function_type: 1
+    input_args: {}
+    invoke_name: ViewSurveys
+    is_active: 1
+    max_retries: 0
+    name: Surveys
+    output_keys:
+      _keys:
+        surveys: '[surveys]: List of Surveys'
+      surveys:
+        id: '__unicode: Data id'
+        title: '__unicode: Data title'
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Returns a list of surveys available
+    user_rate_limit: 0.0
+  ViewWebhook:
+    function_type: 1
+    input_args:
+      WebhookId:
+        arg_type: 14
+        description: Id of the Webhook
+        example: '1234'
+        name: WebhookId
+        required: 1
+    invoke_name: ViewWebhook
+    is_active: 1
+    max_retries: 0
+    name: View Webhook
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Returns the details about the webhook
+    user_rate_limit: 0.0
+  Webhooks:
+    function_type: 1
+    input_args:
+      SurveyId:
+        arg_type: 14
+        description: Id of the survey
+        example: '1234'
+        name: SurveyId
+        required: 1
+    invoke_name: Webhooks
+    is_active: 1
+    max_retries: 0
+    name: Create Wehooks
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Returns a list of webhooks.
+    user_rate_limit: 0.0
+  createattach:
+    function_type: 1
+    input_args: {}
+    invoke_name: createattach
+    is_active: 1
+    max_retries: 0
+    name: Create Attachments
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: dawscdwdwqd
+    user_rate_limit: 0.0
+  response_completed:
+    function_type: 2
+    input_args: {}
+    invoke_name: response_completed
+    is_active: 1
+    max_retries: 0
+    name: New survey response
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Survey response completed notification
+    user_rate_limit: 0.0
+  view_survey_expanded_details:
+    function_type: 1
+    input_args:
+      Survey-id:
+        arg_type: 14
+        description: ID of the survey
+        example: '1234'
+        name: Survey-id
+        required: 1
+    invoke_name: view_survey_expanded_details
+    is_active: 1
+    max_retries: 0
+    name: Expanded survey details
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Returns an expanded survey resource with a pages element containing
+      a list of all page objects, each containing a list of questions objects.
+    user_rate_limit: 0.0
+  workgroup:
+    function_type: 1
+    input_args:
+      User-id:
+        arg_type: 1
+        description: A specific users id
+        example: '1234'
+        name: User-id
+        required: 1
+    invoke_name: workgroup
+    is_active: 0
+    max_retries: 0
+    name: Workgroup Details
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Give details about the workgroup of a specific user
+    user_rate_limit: 0.0
+icon_url: https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.fccsc.k12.in.us%2Ffchs%2Fwp-content%2Fuploads%2F2014%2F02%2FSurvey-Monkey.png&imgrefurl=https%3A%2F%2Fwww.fccsc.k12.in.us%2Ffchs%2Fsurvey-monkey%2F&docid=fRkk7oZpjRBTjM&tbnid=SePfhLm3wdrvCM%3A&vet=10ahUKEwj3sKiRqPDaAhWJK48KHXE8AjQQMwg4KAAwAA..i&w=1420&h=1025&client=safari&bih=839&biw=1440&q=surveymonkey%20ico&ved=0ahUKEwj3sKiRqPDaAhWJK48KHXE8AjQQMwg4KAAwAA&iact=mrc&uact=8
+install_page_url: https://smtest111.herokuapp.com/
+invoke_name: surveymonk
+is_active: 1
+is_production_or_sandbox: 1
+long_description: SurveyMonkey
+name: SurveyMonkey
+privacy_policy_url: http://yellowant.com/privacy
+rate_limit: 0.0
+rate_limited: 0
+redirect_uris: https://smtest111.herokuapp.com/redirecturl/yellowant_redirecturl/
+short_description: Performs survey monkey functions
+user_rate_limit: 0.0
+visibility_scope: 0
+website: https://smtest111.herokuapp.com/

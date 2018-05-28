@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+{% load static %}
+<base href="/">
+{% block content %}
+<script>
+  var djangoConstants = {
+    base_href: "/",
+    application_id: 322
+  };
+</script>
+
+<div ng-app="surveymonkey-app">
+
+<yellowant-surveymonkey-app></yellowant-surveymonkey-app>
+
+  <script src="https://s3.amazonaws.com/ya-stage-common/angular-static/angular.js/1.6.4/angular.min.js"></script>
+
+  <script src="https://s3.amazonaws.com/ya-stage-common/angular-static/angular.js/1.6.4/angular-animate.min.js"></script>
+
+  <script src="https://s3.amazonaws.com/ya-stage-common/angular-static/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
+
+  <script src="https://s3.amazonaws.com/ya-stage-common/angular-static/angular-material/1.1.4/angular-material.min.js"></script>
+
+  <script src="https://s3.amazonaws.com/ya-stage-common/angular-static/angular.js/1.6.4/angular-messages.min.js"></script>
+
+  <script src="https://s3.amazonaws.com/ya-stage-common/angular-static/angular.js/1.6.4/angular-aria.min.js"></script>
+
+  <script src="{% static "dist/main.js" %}"></script>
+  <link rel="stylesheet" type="text/css" href="{% static "dist/main.css" %}">
+
+
+
+</div>
+
+
+{% endblock %}
