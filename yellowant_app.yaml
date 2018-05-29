@@ -282,7 +282,7 @@ functions:
 icon_url: https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.fccsc.k12.in.us%2Ffchs%2Fwp-content%2Fuploads%2F2014%2F02%2FSurvey-Monkey.png&imgrefurl=https%3A%2F%2Fwww.fccsc.k12.in.us%2Ffchs%2Fsurvey-monkey%2F&docid=fRkk7oZpjRBTjM&tbnid=SePfhLm3wdrvCM%3A&vet=10ahUKEwj3sKiRqPDaAhWJK48KHXE8AjQQMwg4KAAwAA..i&w=1420&h=1025&client=safari&bih=839&biw=1440&q=surveymonkey%20ico&ved=0ahUKEwj3sKiRqPDaAhWJK48KHXE8AjQQMwg4KAAwAA&iact=mrc&uact=8
 id: 322
 install_page_url: https://duster30.herokuapp.com/
-invoke_name: surveymonkey
+invoke_name: surveymonk
 is_active: 1
 is_production_or_sandbox: 1
 long_description: SurveyMonkey
