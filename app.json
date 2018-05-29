@@ -26,8 +26,7 @@
     },
     "DISABLE_COLLECTSTATIC": {
       "required": false,
-      "value": "1",
-      "visible": false
+      "value": "1"
     }
 
   }
