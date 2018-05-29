@@ -30,22 +30,21 @@ class CommandCenter(object):
         self.args = args
 
     def parse(self):
-        self.commands = {\
-            'AccountDetails': self.Account_Details,\
-            'ViewAllContacts': self.View_All_Contacts,\
-            'workgroup': self.workgroup_details,\
-            'ContactLists': self.Contact_Lists,\
-            'ContactListDetails': self.Contact_List_Details,\
-            'ViewSurveys': self.View_Surveys,\
-            'ViewSurveyDetails': self.View_Survey_Details,\
-            'view_survey_expanded_details': self.view_survey_expanded_details,\
-            'SurveyCategory': self.Survey_Category,\
-            'SurveyTemplates': self.Survey_Templates,\
-            'SurveyLangAvailable': self.Survey_Lang_Available,\
-            'CollectorsAvailable': self.Collectors_Available,\
-            'Webhooks': self.Webhooks,\
-            'ViewWebhook': self.ViewWebhook,\
-            # 'Collector': self.Collectors,\
+        self.commands = {
+            'AccountDetails': self.Account_Details,
+            'ViewAllContacts': self.View_All_Contacts,
+            'workgroup': self.workgroup_details,
+            'ContactLists': self.Contact_Lists,
+            'ContactListDetails': self.Contact_List_Details,
+            'ViewSurveys': self.View_Surveys,
+            'ViewSurveyDetails': self.View_Survey_Details,
+            'view_survey_expanded_details': self.view_survey_expanded_details,
+            'SurveyCategory': self.Survey_Category,
+            'SurveyTemplates': self.Survey_Templates,
+            'SurveyLangAvailable': self.Survey_Lang_Available,
+            'CollectorsAvailable': self.Collectors_Available,
+            'Webhooks': self.Webhooks,
+            'ViewWebhook': self.ViewWebhook
         }
         print("In parse")
 
@@ -537,13 +536,13 @@ class CommandCenter(object):
 
     def Webhooks(self, args):
         print("In Webhooks")
-
-        data = {\
-        "name": "My Webhook",\
-	    "event_type": "response_completed",\
-	    "object_type": "survey",\
-	    "object_ids":["151123389"],\
-	    "subscription_url": "http://38f456dc.ngrok.io/webhook_receiver/webhook_receiver/"\
+        app_name = settings.app_name
+        data = {
+        "name": "My Webhook",
+	    "event_type": "response_completed",
+	    "object_type": "survey",
+	    "object_ids":["151123389"],
+	    "subscription_url": "https://{}.herokuapp.com/webhook_receiver/webhook_receiver/".format(app_name)
         }
 
         url = "https://api.surveymonkey.com/v3/webhooks"
@@ -589,13 +588,13 @@ class CommandCenter(object):
             if survey['id'] not in surveys_webhooks_enabled:
                 surveys_to_enable.append(survey['id'])
 
-        data = {\
-        "name": "My Webhook",\
-	    "event_type": "response_completed",\
-	    "object_type": "survey",\
-	    "object_ids": surveys_to_enable,\
-	    "subscription_url": "http://38f456dc.ngrok.io/webhook_receiver/webhook_receiver/%s/"%\
-        (self.user_integration.webhook_id)\
+        app_name = settings.app_name
+        data = {
+        "name": "My Webhook",
+	    "event_type": "response_completed",
+	    "object_type": "survey",
+	    "object_ids": surveys_to_enable,
+	    "subscription_url": "http://%s.herokuapp.com/webhook_receiver/webhook_receiver/%s/"%(app_name,self.user_integration.webhook_id)
         }
 
         url = "https://api.surveymonkey.com/v3/webhooks"
