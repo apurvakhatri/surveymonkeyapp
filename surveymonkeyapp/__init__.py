@@ -1,6 +1,5 @@
 import os
 YA_DEVELOPER_TOKEN=os.environ.get("YA_DEVELOPER_TOKEN")
-invoke=os.environ.get("YA_INVOKE_NAME")
 print(YA_DEVELOPER_TOKEN)
 base=os.environ.get("HEROKU_APP_NAME")
 #website = "https://{}.herokuapp.com/".format(base)
