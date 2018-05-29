@@ -43,9 +43,9 @@ class CommandCenter(object):
             'SurveyTemplates': self.Survey_Templates,\
             'SurveyLangAvailable': self.Survey_Lang_Available,\
             'CollectorsAvailable': self.Collectors_Available,\
-            'Collector': self.Collectors,\
             'Webhooks': self.Webhooks,\
-            'ViewWebhook': self.ViewWebhook\
+            'ViewWebhook': self.ViewWebhook,\
+            # 'Collector': self.Collectors,\
         }
         print("In parse")
 
@@ -524,20 +524,20 @@ class CommandCenter(object):
             print(str(e))
             traceback.print_exc()
 
-    def Collectors(self, args):
-        print("In collectors")
-        CollectorId = args["CollectorId"]
-
-        url = "https://api.surveymonkey.com/v3/collectors/%s"%(CollectorId)
-        response = requests.get(url, headers=self.headers)
-        response_json = response.json()
-
-        print(response_json)
-        return "Hey"
+    # def Collectors(self, args):
+    #     print("In collectors")
+    #     CollectorId = args["CollectorId"]
+    #
+    #     url = "https://api.surveymonkey.com/v3/collectors/%s"%(CollectorId)
+    #     response = requests.get(url, headers=self.headers)
+    #     response_json = response.json()
+    #
+    #     print(response_json)
+    #     return "Hey"
 
     def Webhooks(self, args):
         print("In Webhooks")
-        
+
         data = {\
         "name": "My Webhook",\
 	    "event_type": "response_completed",\

@@ -251,4 +251,4 @@ def yellowant_api(request):
     except Exception as e:
         print(str(e))
         traceback.print_exc()
-        return "Something returned"
+        return "Error occured"
