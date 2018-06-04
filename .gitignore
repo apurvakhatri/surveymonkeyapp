@@ -1,6 +1,7 @@
 */migrations
 migrations/*
 static/node_modules/*
+.idea/*
 # Created by https://www.gitignore.io/api/django
 
 ### Django ###
