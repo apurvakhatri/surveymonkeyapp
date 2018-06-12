@@ -12,9 +12,9 @@ from django.contrib.auth.models import User
 from yellowant import YellowAnt
 from yellowant.messageformat import MessageClass, MessageAttachmentsClass, \
 MessageButtonsClass, AttachmentFieldsClass
-from records.models import YellowUserToken, YellowAntRedirectState, AppRedirectState, \
+from .models import YellowUserToken, YellowAntRedirectState, AppRedirectState, \
 SurveyMonkeyUserToken
-from records.YellowAntCommandCenter import CommandCenter
+from .YellowAntCommandCenter import CommandCenter
 
 
 SM_API_BASE = settings.SM_API_BASE
@@ -67,6 +67,7 @@ def yellowant_redirecturl(request):
     user = yellowant_redirect_state.user
 
     # initialize the YA SDK client with your application credentials
+    print(user)
     ya_client = YellowAnt(app_key=settings.YELLOWANT_CLIENT_ID,\
     app_secret=settings.YELLOWANT_CLIENT_SECRET, access_token=None,\
     redirect_uri=settings.YELLOWANT_REDIRECT_URL)
@@ -74,6 +75,7 @@ def yellowant_redirecturl(request):
     # access_token_dict is json structured
     # get the access token for a user integration from YA against the code
     access_token_dict = ya_client.get_access_token(code)
+    print(access_token_dict)
     access_token = access_token_dict['access_token']
 
     # reinitialize the YA SDK client with the user integration access token
@@ -105,8 +107,6 @@ def yellowant_redirecturl(request):
     to each YA user integration.""" #pylint: disable=pointless-string-statement
 
     return HttpResponseRedirect("/integrate_app?id={}".format(str(u_t.id)))
-
-
 
 
 def integrate_app_account(request):
@@ -175,6 +175,7 @@ def sm_redirecturl(request):
         """The code below is for webhooks, to enable webhooks for all the surveys available
         as soon as the user is authenticated by SM.
         """ #pylint: disable=pointless-string-statement
+
         url = (SM_API_BASE + "/v3/surveys")
         response = requests.get(url, headers=headers)
         response_json = response.json()
@@ -182,13 +183,13 @@ def sm_redirecturl(request):
 
         surveys_to_enable = [survey['id'] for survey in surveys_data]
 
-        data = {\
-        "name":"My Webhook",\
-	    "event_type": "response_completed",\
-	    "object_type": "survey",\
-	    "object_ids": surveys_to_enable,\
-	    "subscription_url": "{}/webhook_receiver/webhook_receiver/{}/"\
-        .format(settings.BASE_URL, u_t.webhook_id)\
+        data = {
+        "name":"My Webhook",
+	    "event_type": "response_completed",
+	    "object_type": "survey",
+	    "object_ids": surveys_to_enable,
+	    "subscription_url": "{}/webhook_receiver/webhook_receiver/{}/"
+        .format(settings.BASE_URL, u_t.webhook_id)
         }
 
         url = "https://api.surveymonkey.com/v3/webhooks"

@@ -8,7 +8,7 @@
 
   <section layout="column" layout-align="start center">
     <md-list class="mw7 w-100" ng-if="$ctrl.userAccounts">
-      <md-list-item ng-repeat="account in $ctrl.userAccounts track by $index">
+      <md-list-item ng-repeat="account in $ctrl.userAccounts track by account.user_invoke_name">
         <md-card class="w-100 has-hidden-action-buttons">
           <md-content class="pa3" layout="row" layout-align="space-between center" ng-if="account.app_authenticated">
             <a class="mb0">

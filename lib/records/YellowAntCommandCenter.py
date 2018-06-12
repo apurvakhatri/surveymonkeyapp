@@ -71,8 +71,6 @@ class CommandCenter(object):
         """
         print("In account details")
 
-        data = {}
-
         url = (settings.SM_API_BASE + settings.USER_INFO_ENDPOINT)
         response = requests.get(url, headers=self.headers)
         response_json = response.json()
@@ -133,11 +131,11 @@ class CommandCenter(object):
 
     def View_All_Contacts(self, args):
         #Display all the Contacts of the user. Including their details.
-        print("In ViewAllContacts")
+
         url = "https://api.surveymonkey.com/v3/contacts/bulk"
         response = requests.get(url, headers=self.headers)
         response_json = response.json()
-        print(response_json)
+
         data = response_json["data"]
         message = MessageClass()
         message.message_text = "All Contacts: \n"
@@ -170,27 +168,10 @@ class CommandCenter(object):
         # use inbuilt sdk method to_json to return message in a json format accepted by YA
         return message.to_json()
 
-    def workgroup_details(self, args):
-        print("In workgroupdetails")
-        user_id = int(args['User-id'])
-        print(user_id)
-        s = requests.Session()
-        headers = s.headers.update({
-            "Authorization": "Bearer %s" % self.surveymonkey_access_token,
-            "Content-Type": "application/json"
-            })
-
-        url = "https://api.surveymonkey.com/v3/users/%s/workgroups" % user_id
-        response = s.get(url)
-
-        print(response)
-        print(response.content)
-        return "workgroup got"
-
 
     def Contact_List_Details(self, args):
         # List all the details of the contact lists(groups) the user has created.
-        print("ContactListDetails")
+
         contact_list_id = args["ContactListId"]
         url = "https://api.surveymonkey.com/v3/contact_lists/%s/contacts"%(contact_list_id)
 
@@ -199,7 +180,7 @@ class CommandCenter(object):
             message.message_text = "Contacts details: \n"
             response = requests.get(url, headers=self.headers)
             response_json = response.json()
-            print(response_json)
+
             data = response_json["data"]
             for i in range(len(data)):
                 obj = data[i]
@@ -238,7 +219,7 @@ class CommandCenter(object):
     def Contact_Lists(self, args):
         # List all the contact lists(groups) the user has created.
         user_id = self.user_integration.yellowant_intergration_id
-        print("In viewlists")
+
 
         url = (settings.SM_API_BASE + settings.VIEW_CONTACTLISTS)
         try:
@@ -248,20 +229,20 @@ class CommandCenter(object):
 
             response = requests.get(url, headers=self.headers)
             response_json = response.json()
-            print(response_json)
+
             data = response_json["data"]
-            print(data[0]['id'])
+
             send_data = {\
             'list':[]\
             }
             for i in range(len(data)):
                 button1 = MessageButtonsClass()
-                print(i)
+
                 obj = data[i]
                 name = obj["name"]
-                print(name)
+
                 id = obj["id"]
-                print(id)
+
                 send_data['list'].append({'id':id, 'name':name})
                 button1.text = name
                 button1.value = name
@@ -291,7 +272,7 @@ class CommandCenter(object):
         url = (settings.SM_API_BASE + settings.VIEW_SURVEY)
         response = requests.get(url, headers=self.headers)
         response_json = response.json()
-        print(response_json)
+
         data = response_json["data"]
         send_data = {
             "surveys": []
@@ -325,20 +306,20 @@ class CommandCenter(object):
             attachment.attach_button(button1)
             message.attach(attachment)
         message.data = send_data
-        print(message)
+
 
         # use inbuilt sdk method to_json to return message in a json format accepted by YA
         return message.to_json()
 
     def View_Survey_Details(self, args):
         # Gives the details of the survey(whichever the user chooses).
-        print("In view_details")
+
         survey_id = args["SurveyId"]
 
         url = ("https://api.surveymonkey.com/v3/surveys/%s")%(survey_id)
         response = requests.get(url, headers=self.headers)
         response_json = response.json()
-        print(response_json)
+
         title = response_json["title"]
         message = MessageClass()
         attachment = MessageAttachmentsClass()
@@ -412,7 +393,7 @@ class CommandCenter(object):
     def view_survey_expanded_details(self, args):
         # Display the Questions and other details associated with a
         # particular survey which user chooses.
-        print("In view_expanded_details")
+
         survey_id = args["Survey-id"]
 
         url = ("https://api.surveymonkey.com/v3/surveys/%s/details")%(survey_id)
@@ -434,10 +415,11 @@ class CommandCenter(object):
         return message.to_json()
 
     def Survey_Category(self, args):
-        print("In SurveyCategory")
+
         url = (settings.SM_API_BASE + settings.SURVEY_CATEGORY)
         response = requests.get(url, headers=self.headers)
         response_json = response.json()
+
         result = "Survey Categories are: \n"
         message = MessageClass()
         data = response_json["data"]
@@ -445,15 +427,18 @@ class CommandCenter(object):
             obj = data[i]
             id = obj["id"]
             name = obj["name"]
-            result = result+str(i+1)+ "." + "Id is: "+ id + "  " + "Name of category: "+ name +"\n"
-        message.message_text = result
+            attachment = MessageAttachmentsClass()
+            attachment.title = id
+            attachment.text = name
+            message.attach(attachment)
+        message.message_text = "Categories are"
 
         # use inbuilt sdk method to_json to return message in a json format accepted by YA
         return message.to_json()
 
     def Survey_Templates(self, args):
         # Return a list of templates available to create a new surey
-        print("In SurveyTemplates")
+
 
         url = (settings.SM_API_BASE + settings.SURVEY_TEMPLATES)
         response = requests.get(url, headers=self.headers)
@@ -464,75 +449,12 @@ class CommandCenter(object):
         for i in range(len(data)):
             obj = data[i]
             name = obj["name"]
-            print(name)
             result = result + str(i+1)+":" + name + "\n"
         message.message_text = result
 
         # use inbuilt sdk method to_json to return message in a json format accepted by YA
         return message.to_json()
 
-    def Survey_Lang_Available(self, args):
-        # Return the available languages in which the Survey can be translated.
-        print("In SurveyLangAvailable")
-        survey_id = args["Survey-ID"]
-
-        url = "https://api.surveymonkey.com/v3/surveys/%s/languages"%(survey_id)
-        response = requests.get(url, headers=self.headers)
-        response_json = response.json()
-        print(response_json)
-        data = response_json["data"]
-        message = MessageClass()
-        result = "Languages available are: \n"
-        for i in range(len(data)):
-            obj = data[i]
-            lang = obj["name"]
-            id = obj["id"]
-            result = result + lang + " " + "ID is: "+ id+ "\n"
-        message.message_text = result
-
-        # use inbuilt sdk method to_json to return message in a json format accepted by YA
-        return message.to_json()
-
-    def Collectors_Available(self, args):
-        print("In view_details")
-        survey_id = args["SurveyId"]
-
-        url = "https://api.surveymonkey.com/v3/surveys/%s/collectors"%(survey_id)
-        message = MessageClass()
-        result = "Collectors available are: \n"
-        try:
-            response = requests.get(url, headers=self.headers)
-            response_json = response.json()
-            data = response_json["data"]
-            send_data = {\
-            "collectors":[]\
-            }
-            for i in range(len(data)):
-                obj = data[i]
-                name = obj["name"]
-                id = obj["id"]
-                send_data["collectors"].append({"id":id, "name":name})
-                result = result + str(i+1)+": "+ name+" "+ "ID is: "+ id+"\n"
-            message.data = send_data
-            message.message_text = result
-            print(send_data)
-
-            # use inbuilt sdk method to_json to return message in a json format accepted by YA
-            return message.to_json()
-        except Exception as e:
-            print(str(e))
-            traceback.print_exc()
-
-    # def Collectors(self, args):
-    #     print("In collectors")
-    #     CollectorId = args["CollectorId"]
-    #
-    #     url = "https://api.surveymonkey.com/v3/collectors/%s"%(CollectorId)
-    #     response = requests.get(url, headers=self.headers)
-    #     response_json = response.json()
-    #
-    #     print(response_json)
-    #     return "Hey"
 
     def Webhooks(self, args):
         print("In Webhooks")
@@ -610,3 +532,85 @@ class CommandCenter(object):
         response_json = response.json()
         print(response_json)
         return "HEY"
+
+    """The functions below are for paid users"""
+
+    def workgroup_details(self, args):
+        print("In workgroupdetails")
+        user_id = int(args['User-id'])
+        print(user_id)
+        s = requests.Session()
+        headers = s.headers.update({
+            "Authorization": "Bearer %s" % self.surveymonkey_access_token,
+            "Content-Type": "application/json"
+            })
+
+        url = "https://api.surveymonkey.com/v3/users/%s/workgroups" % user_id
+        response = s.get(url)
+
+        print(response)
+        print(response.content)
+        return "workgroup got"
+
+    def Collectors_Available(self, args):
+        print("In view_details")
+        survey_id = args["SurveyId"]
+
+        url = "https://api.surveymonkey.com/v3/surveys/%s/collectors"%(survey_id)
+        message = MessageClass()
+        result = "Collectors available are: \n"
+        try:
+            response = requests.get(url, headers=self.headers)
+            response_json = response.json()
+            data = response_json["data"]
+            send_data = {\
+            "collectors":[]\
+            }
+            for i in range(len(data)):
+                obj = data[i]
+                name = obj["name"]
+                id = obj["id"]
+                send_data["collectors"].append({"id":id, "name":name})
+                result = result + str(i+1)+": "+ name+" "+ "ID is: "+ id+"\n"
+            message.data = send_data
+            message.message_text = result
+            print(send_data)
+
+            # use inbuilt sdk method to_json to return message in a json format accepted by YA
+            return message.to_json()
+        except Exception as e:
+            print(str(e))
+            traceback.print_exc()
+
+    def Survey_Lang_Available(self, args):
+        # Return the available languages in which the Survey can be translated.
+        print("In SurveyLangAvailable")
+        survey_id = args["Survey-ID"]
+
+        url = "https://api.surveymonkey.com/v3/surveys/%s/languages"%(survey_id)
+        response = requests.get(url, headers=self.headers)
+        response_json = response.json()
+        print(response_json)
+        data = response_json["data"]
+        message = MessageClass()
+        result = "Languages available are: \n"
+        for i in range(len(data)):
+            obj = data[i]
+            lang = obj["name"]
+            id = obj["id"]
+            result = result + lang + " " + "ID is: "+ id+ "\n"
+        message.message_text = result
+
+        # use inbuilt sdk method to_json to return message in a json format accepted by YA
+        return message.to_json()
+
+    # def Collectors(self, args):
+    #     print("In collectors")
+    #     CollectorId = args["CollectorId"]
+    #
+    #     url = "https://api.surveymonkey.com/v3/collectors/%s"%(CollectorId)
+    #     response = requests.get(url, headers=self.headers)
+    #     response_json = response.json()
+    #
+    #     print(response_json)
+    #     return "Hey"

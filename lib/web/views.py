@@ -4,7 +4,7 @@ import requests
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from yellowant import YellowAnt
-from records.models import YellowUserToken, SurveyMonkeyUserToken, AppRedirectState
+from ..records.models import YellowUserToken, SurveyMonkeyUserToken, AppRedirectState
 
 
 def index(request):

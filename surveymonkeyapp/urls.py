@@ -16,11 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
-from records import urls as records_urls
-from web import urls as web_urls
-from records.views import integrate_app_account
-#from django.conf import settings
-#from django.conf.urls.static import static
+from lib.records import urls as records_urls
+from lib.web import urls as web_urls
+from lib.records.views import integrate_app_account
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include(web_urls)),
@@ -30,5 +30,4 @@ urlpatterns = [
     path("yellowantauthurl/", include(records_urls)),
     path("webhook_receiver/", include(records_urls)),
     path("integrate_app/",integrate_app_account)
-
-]# + static(settings.STATIC_URL. document_root=settings.STATIC_ROOT)
+]

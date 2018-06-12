@@ -67,7 +67,7 @@ class SurveyMonkeyUserToken(models.Model):
         surveymonkey_access_token: SurveyMonkey access token
     """
     user_integration = models.ForeignKey(YellowUserToken, on_delete=models.CASCADE)
-    surveymonkey_access_token = models.CharField(max_length=501)
+    surveymonkey_access_token = models.CharField(max_length=512)
 
     class Meta:
         unique_together = ('user_integration', 'surveymonkey_access_token',)

@@ -1,6 +1,6 @@
 from django.urls import path
 
-from web.views import index, userdetails, delete_integration
+from .views import index, userdetails, delete_integration
 from django.conf.urls import url
 
 urlpatterns = [
