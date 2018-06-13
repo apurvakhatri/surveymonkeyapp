@@ -96,6 +96,7 @@ def yellowant_redirecturl(request):
     This application will then be able to identify the actual application accounts corresponding\
     to each YA user integration.""" #pylint: disable=pointless-string-statement
 
+    print("exiting yellowant_redirecturl")
     return HttpResponseRedirect(settings.SITE_PROTOCOL + f"{yellowant_redirect_state.subdomain}." +
                                 settings.SITE_DOMAIN_URL + settings.BASE_HREF + f"integrate_app?id={ut.id}")
 

@@ -8,6 +8,7 @@ import requests
 import pytz
 from yellowant import YellowAnt
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
 from yellowant.messageformat import MessageClass, MessageAttachmentsClass,\
 MessageButtonsClass, AttachmentFieldsClass
 from .models import SurveyMonkeyUserToken, YellowUserToken
@@ -473,6 +474,7 @@ class CommandCenter(object):
         print(response_json)
         return "Hey"
 
+    @csrf_exempt
     def RefreshWebhooks(self):
         print("In RefreshWebhooks")
         self.user_integration.webhook_last_updated = datetime.datetime.utcnow()

@@ -47,6 +47,7 @@ if DEV_ENV=="DEV":
     SURVEYMONKEY_VERIFICATION_TOKEN = "pd45cmph4w8I7hrPUIUPin5-u9vMuWm1PDChgAoHQkTyHndCqtT3224Rcn1582NIqaJNNdIDsByaJOFXojIbXKwFkp35e5yFdhCSHefGfoFgukpxrNsIjVakiSXvxmLk"
     BASE_URL = "https://c6bb6ead.ngrok.io"
     SITE_DOMAIN_URL = "ngrok.io"
+
 elif DEV_ENV=="HEROKU":
     BASE_URL = "https://{}.herokuapp.com/".format(app_name)
     SURVEYMONKEY_CLIENT_ID = os.environ.get('SM_CLIENT_ID')
