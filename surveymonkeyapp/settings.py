@@ -31,7 +31,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY','($g%68la(r_u!0i9h^=cv^e(3$2tj^tp_#%s$m
 
 # SECURITY WARNING: don't run with debug turned on in production!
 app_name = os.environ.get("HEROKU_APP_NAME")
+BASE_URL = "https://c6bb6ead.ngrok.io"
 DEBUG = True
+
+BASE_HREF = "/"
+SITE_PROTOCOL = "https://"
 
 ALLOWED_HOSTS = ['*', '{}.herokuapp.com'.format(app_name)]
 
@@ -41,17 +45,15 @@ if DEV_ENV=="DEV":
     SURVEYMONKEY_CLIENT_ID = "lkE_cJOzRV6j0B9bPLaJug"
     SURVEYMONKEY_CLIENT_SECRET = "65085943951230993449921484314018791204"
     SURVEYMONKEY_VERIFICATION_TOKEN = "pd45cmph4w8I7hrPUIUPin5-u9vMuWm1PDChgAoHQkTyHndCqtT3224Rcn1582NIqaJNNdIDsByaJOFXojIbXKwFkp35e5yFdhCSHefGfoFgukpxrNsIjVakiSXvxmLk"
-    BASE_URL = "https://89312610.ngrok.io"
+    BASE_URL = "https://c6bb6ead.ngrok.io"
+    SITE_DOMAIN_URL = "ngrok.io"
 elif DEV_ENV=="HEROKU":
     BASE_URL = "https://{}.herokuapp.com/".format(app_name)
     SURVEYMONKEY_CLIENT_ID = os.environ.get('SM_CLIENT_ID')
     SURVEYMONKEY_CLIENT_SECRET = os.environ.get('SM_CLIENT_SECRET')
     SURVEYMONKEY_VERIFICATION_TOKEN = os.environ.get('SM_VERIFICATION_TOKEN')
     app_name = os.environ.get("HEROKU_APP_NAME")
-
-
-
-
+    SITE_DOMAIN_URL = "herokuapp.com"
 
 
 SURVEYMONKEY_OUTH_URL = "https://api.surveymonkey.com/oauth/authorize/"
@@ -70,11 +72,9 @@ YELLOWANT_OAUTH_URL = "https://www.yellowant.com/api/oauth2/authorize/"
 # Client ID generated from the YA developer console. Required to identify requests from
 # this application to YA
 YELLOWANT_CLIENT_ID = str(data_json['client_id'])
-print(YELLOWANT_CLIENT_ID)
 # Client secret generated from the YA developer console. Required to identify requests from
 # this application to YA
 YELLOWANT_CLIENT_SECRET = str(data_json['client_secret'])
-print(YELLOWANT_CLIENT_SECRET)
 # Verification token generated from the YA developer console. This application can verify requests
 # from YA as they will
 # carry the verification token
@@ -146,7 +146,7 @@ WSGI_APPLICATION = 'surveymonkeyapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'surveymonkey2',
+        'NAME': 'surveymonkey5',
         'USER': 'root',
         'PASSWORD': 'khatri@19',
         'HOST': 'localhost',

@@ -29,11 +29,11 @@ class YellowUserToken(models.Model):
         webhook_last_updated(time): The time at which webhook got updated
     """
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.CharField(max_length=100)
     yellowant_token = models.CharField(max_length=100)
     yellowant_id = models.IntegerField(default=0)
     yellowant_integration_invoke_name = models.CharField(max_length=100)
-    yellowant_intergration_id = models.IntegerField(default=0)
+    yellowant_integration_id = models.IntegerField(default=0)
     webhook_id = models.CharField(max_length=100, default="")
     webhook_last_updated = models.DateTimeField(default=datetime.datetime.utcnow)
 
@@ -46,8 +46,9 @@ class YellowAntRedirectState(models.Model):
         state (str): A unique ID which helps in matching an oauth2 code from YA to a user
     """
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.CharField(max_length=100)
     state = models.CharField(max_length=512, null=False)
+    subdomain = models.CharField(max_length=128)
 
 class AppRedirectState(models.Model):
     """Model to store SM oauth requests with users
@@ -67,7 +68,7 @@ class SurveyMonkeyUserToken(models.Model):
         surveymonkey_access_token: SurveyMonkey access token
     """
     user_integration = models.ForeignKey(YellowUserToken, on_delete=models.CASCADE)
-    surveymonkey_access_token = models.CharField(max_length=512)
+    surveymonkey_access_token = models.CharField(max_length=130)
 
     class Meta:
-        unique_together = ('user_integration', 'surveymonkey_access_token',)
+        unique_together = ('user_integration', 'surveymonkey_access_token')

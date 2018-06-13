@@ -275,7 +275,7 @@ is_active: 1
 is_production_or_sandbox: 1
 long_description: SurveyMonkey
 name: SurveyMonkey
-privacy_policy_url: https://duster60.herokuapp.com/privacy
+privacy_policy_url: https://surveymonkey1.herokuapp.com/privacy
 rate_limit: 0.0
 rate_limited: 0
 redirect_uris: https://89312610.ngrok.io/redirecturl/yellowant_redirecturl/

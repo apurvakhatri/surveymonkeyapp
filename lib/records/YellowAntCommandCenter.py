@@ -23,9 +23,9 @@ class CommandCenter(object):
         command_name (str): Invoke name of the command the user is calling
         args (dict): Any arguments required for the command to run
     """
-    def __init__(self, yellowant_user_id, yellowant_intergration_id, function_name, args):
+    def __init__(self, yellowant_user_id, yellowant_integration_id, function_name, args):
         self.yellowant_user_id = yellowant_user_id
-        self.yellowant_intergration_id = yellowant_intergration_id
+        self.yellowant_integration_id = yellowant_integration_id
         self.function_name = function_name
         self.args = args
 
@@ -49,7 +49,7 @@ class CommandCenter(object):
         print("In parse")
 
         self.user_integration = YellowUserToken.objects.get(\
-        yellowant_intergration_id=self.yellowant_intergration_id)
+        yellowant_integration_id=self.yellowant_integration_id)
 
         self.sm_access_token_object = SurveyMonkeyUserToken.objects.get(\
         user_integration=self.user_integration)
@@ -218,7 +218,7 @@ class CommandCenter(object):
 
     def Contact_Lists(self, args):
         # List all the contact lists(groups) the user has created.
-        user_id = self.user_integration.yellowant_intergration_id
+        user_id = self.user_integration.yellowant_integration_id
 
 
         url = (settings.SM_API_BASE + settings.VIEW_CONTACTLISTS)
@@ -268,7 +268,7 @@ class CommandCenter(object):
     def View_Surveys(self, args):
         # Display the Surveys associated with the users account.
         print("In view surveys")
-        user_id = self.user_integration.yellowant_intergration_id
+        user_id = self.user_integration.yellowant_integration_id
         url = (settings.SM_API_BASE + settings.VIEW_SURVEY)
         response = requests.get(url, headers=self.headers)
         response_json = response.json()
@@ -479,7 +479,7 @@ class CommandCenter(object):
         self.user_integration.save()
 
         user_integration = YellowUserToken.objects.get(\
-        yellowant_intergration_id=self.yellowant_intergration_id)
+        yellowant_integration_id=self.yellowant_integration_id)
 
         sm_access_token_object = SurveyMonkeyUserToken.objects.get(\
         user_integration=user_integration)

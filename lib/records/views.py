@@ -10,8 +10,7 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from yellowant import YellowAnt
-from yellowant.messageformat import MessageClass, MessageAttachmentsClass, \
-MessageButtonsClass, AttachmentFieldsClass
+from yellowant.messageformat import MessageClass
 from .models import YellowUserToken, YellowAntRedirectState, AppRedirectState, \
 SurveyMonkeyUserToken
 from .YellowAntCommandCenter import CommandCenter
@@ -30,18 +29,22 @@ def request_yellowant_oauth_code(request):
     """
     # get the user requesting to create a new YA integration
     user = User.objects.get(id=request.user.id)
+    subdomain = request.get_host().split('.')[0]
     # generate a unique ID to identify the user when YA returns an oauth2 code
     state = str(uuid.uuid4())
     # save the relation between user and state so that
     # we can identify the user when YA returns the oauth2 code
-    YellowAntRedirectState.objects.create(user=user, state=state)
+    YellowAntRedirectState.objects.create(user=user.id, state=state, subdomain=subdomain)
     """Redirect the application user to the YA authentication page.
     Note that we are passing state, this app's client id,
     oauth response type as code, and the url to return the oauth2 code at.
     """ #pylint: disable=pointless-string-statement
-    return HttpResponseRedirect("{}?state={}&client_id={}&response_type=code&redirect_url={}"\
-    .format(settings.YELLOWANT_OAUTH_URL, state, settings.YELLOWANT_CLIENT_ID, \
-    settings.YELLOWANT_REDIRECT_URL))
+    return HttpResponseRedirect(
+        "{}?state={}&client_id={}&response_type=code&redirect_url={}".format(settings.YELLOWANT_OAUTH_URL,
+                                                                             state,
+                                                                             settings.YELLOWANT_CLIENT_ID,
+                                                                             settings.YELLOWANT_REDIRECT_URL)
+    )
 
 @csrf_exempt
 def yellowant_redirecturl(request):
@@ -56,46 +59,33 @@ def yellowant_redirecturl(request):
     between these user auth details and the YA user integration.
     """
     print("In yellowant_redirecturl")
-
-    # oauth2 code from YA, passed as GET params in the url
     code = request.GET.get('code')
-
-    # the unique string to identify the user for which we will create an integration
     state = request.GET.get("state")
-
     yellowant_redirect_state = YellowAntRedirectState.objects.get(state=state)
     user = yellowant_redirect_state.user
 
     # initialize the YA SDK client with your application credentials
     print(user)
-    ya_client = YellowAnt(app_key=settings.YELLOWANT_CLIENT_ID,\
-    app_secret=settings.YELLOWANT_CLIENT_SECRET, access_token=None,\
-    redirect_uri=settings.YELLOWANT_REDIRECT_URL)
+    ya_client = YellowAnt(app_key=settings.YELLOWANT_CLIENT_ID, app_secret=settings.YELLOWANT_CLIENT_SECRET,
+                          access_token=None,
+                          redirect_uri=settings.YELLOWANT_REDIRECT_URL)
 
-    # access_token_dict is json structured
-    # get the access token for a user integration from YA against the code
     access_token_dict = ya_client.get_access_token(code)
     print(access_token_dict)
     access_token = access_token_dict['access_token']
-
-    # reinitialize the YA SDK client with the user integration access token
     yellowant_user = YellowAnt(access_token=access_token)
-
-    # get YA user details
     profile = yellowant_user.get_user_profile()
-
-    # create a new user integration for your application
     user_integration = yellowant_user.create_user_integration()
     hash_str = str(uuid.uuid4()).replace("-", "")[:25]
 
     # save the YA user integration details in your database
-    u_t = YellowUserToken.objects.create(\
-    user=user,\
-    yellowant_token=access_token,\
-    yellowant_id=profile['id'],\
-    yellowant_integration_invoke_name=user_integration["user_invoke_name"],\
-    yellowant_intergration_id=user_integration['user_application'],\
-    webhook_id=hash_str)
+    ut = YellowUserToken.objects.create(user=user,
+                                   yellowant_token=access_token,
+                                   yellowant_id=profile['id'],
+                                   yellowant_integration_invoke_name=user_integration["user_invoke_name"],
+                                   yellowant_integration_id=user_integration['user_application'],
+                                   webhook_id=hash_str
+                                )
 
     """A new YA user integration has been created and the details have been successfully saved in
     your application's database. However, we have only created an integration on YA.
@@ -106,7 +96,8 @@ def yellowant_redirecturl(request):
     This application will then be able to identify the actual application accounts corresponding\
     to each YA user integration.""" #pylint: disable=pointless-string-statement
 
-    return HttpResponseRedirect("/integrate_app?id={}".format(str(u_t.id)))
+    return HttpResponseRedirect(settings.SITE_PROTOCOL + f"{yellowant_redirect_state.subdomain}." +
+                                settings.SITE_DOMAIN_URL + settings.BASE_HREF + f"integrate_app?id={ut.id}")
 
 
 def integrate_app_account(request):
@@ -219,7 +210,7 @@ def responsewebhook(request, hash_str=""):
             yauser_integration_object = YellowAnt(access_token=ya_obj.yellowant_token)
 
             send_message = yauser_integration_object.create_webhook_message(\
-            requester_application=ya_obj.yellowant_intergration_id, \
+            requester_application=ya_obj.yellowant_integration_id, \
             webhook_name="response_completed", **message.get_dict())
 
         return HttpResponse("webhook_receiver/webhook_receiver/")
