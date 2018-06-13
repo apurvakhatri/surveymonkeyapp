@@ -1,10 +1,9 @@
-import traceback
 import json
-import requests
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import render
 from yellowant import YellowAnt
-from ..records.models import YellowUserToken, SurveyMonkeyUserToken, AppRedirectState
+from ..records.models import YellowUserToken, SurveyMonkeyUserToken
+from django.conf import settings
 
 
 def index(request):
@@ -14,9 +13,12 @@ def index(request):
     }
     if request.user.is_authenticated:
         user_integrations = YellowUserToken.objects.filter(user=request.user.id)
-        for user_integration in user_integrations:
-            print(user_integration)
-            context["user_integrations"].append(user_integration)
+        # for user_integration in user_integrations:
+        #     print(user_integration)
+        #     context["user_integrations"].append(user_integration)
+        context = {"base_href": settings.BASE_HREF,
+                   "application_id": settings.YA_APP_ID,
+                   }
     return render(request, "home.html", context)
 
 

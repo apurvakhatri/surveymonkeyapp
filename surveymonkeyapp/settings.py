@@ -68,7 +68,7 @@ YELLOWANT_OAUTH_URL = "https://www.yellowant.com/api/oauth2/authorize/"
 
 
 # YellowAnt specific settings
-
+YA_APP_ID = str(data_json['application_id'])
 # Client ID generated from the YA developer console. Required to identify requests from
 # this application to YA
 YELLOWANT_CLIENT_ID = str(data_json['client_id'])
