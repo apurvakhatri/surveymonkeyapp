@@ -1,4 +1,4 @@
-api_url: https://c6bb6ead.ngrok.io/yellowantauthurl/yellowant-api/
+api_url: https://abb829fb.ngrok.io/yellowantauthurl/yellowant-api/
 client_id: 3oMAtrDLNeCqNeRS3qclc4TUGo8PnWGZojUyeFw5
 client_secret: yvWK2qrng9jGrMNQIfzgglxFGijwoiW7AEIw0LTyXyjbFuof2iwRRExbYnB3IjrTZTUlnXD3NO02UCFdbb4l7kDSdVO3lT6ne4aPL4RyzQ8iohB8NUSki6t2hQkEmWC1
 creator_email: apurvakhatri2011@gmail.com
@@ -269,19 +269,19 @@ functions:
     user_rate_limit: 0.0
 icon_url: https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.fccsc.k12.in.us%2Ffchs%2Fwp-content%2Fuploads%2F2014%2F02%2FSurvey-Monkey.png&imgrefurl=https%3A%2F%2Fwww.fccsc.k12.in.us%2Ffchs%2Fsurvey-monkey%2F&docid=fRkk7oZpjRBTjM&tbnid=SePfhLm3wdrvCM%3A&vet=10ahUKEwj3sKiRqPDaAhWJK48KHXE8AjQQMwg4KAAwAA..i&w=1420&h=1025&client=safari&bih=839&biw=1440&q=surveymonkey%20ico&ved=0ahUKEwj3sKiRqPDaAhWJK48KHXE8AjQQMwg4KAAwAA&iact=mrc&uact=8
 id: 322
-install_page_url: https://c6bb6ead.ngrok.io/
+install_page_url: https://abb829fb.ngrok.io/
 invoke_name: surveymonkey
 is_active: 1
 is_production_or_sandbox: 1
 long_description: SurveyMonkey
 name: SurveyMonkey
-privacy_policy_url: https://surveymonkey1.herokuapp.com/privacy
+privacy_policy_url: https://surveymonkeyapp.herokuapp.com/privacy
 rate_limit: 0.0
 rate_limited: 0
-redirect_uris: https://c6bb6ead.ngrok.io/redirecturl/yellowant_redirecturl/
+redirect_uris: https://abb829fb.ngrok.io/redirecturl/yellowant_redirecturl/
 rtm_token: yy0ljqsQ99qBhi7AeHMwMOXKFPv8fDDubogHgVayuOW7J5c6y3WbuiSXPGx6LznnXA7MjGzJ0jHilEvf3iYGsiRdLW7RjQZClndQqNDmceaV1tfSrgGsr7ROCiVb2Y5p
 short_description: Performs survey monkey functions
 user_rate_limit: 0.0
 verification_token: Ce3dZYWO2cnXT8PI0ney1mSNz4QOwPr8HqVOjNORqBJvFz9OiRYdmsmiPvjLoXhuUdJ6CiHU909jJoLcjeOr2zL9RQ8nIWGVzM1ZEig3ySTRIWpLu4Z2CBU1Z1VJIoaw
 visibility_scope: 0
-website: https://c6bb6ead.ngrok.io/
+website: https://abb829fb.ngrok.io/

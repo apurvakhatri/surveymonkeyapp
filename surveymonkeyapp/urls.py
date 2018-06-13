@@ -22,11 +22,11 @@ from lib.records.views import integrate_app_account
 
 
 urlpatterns = [
-    path("integrate_app", integrate_app_account),
     path('admin/', admin.site.urls),
     path("surveymonkeyauthurl/", include(records_urls)),
     path("redirecturl/", include(records_urls)),
     path("yellowantauthurl/", include(records_urls)),
+    path("integrate_app", integrate_app_account),
     path("webhook_receiver/", include(records_urls)),
     path('', include(web_urls))
 ]

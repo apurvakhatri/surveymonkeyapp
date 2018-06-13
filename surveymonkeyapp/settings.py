@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY','($g%68la(r_u!0i9h^=cv^e(3$2tj^tp_#%s$m
 
 # SECURITY WARNING: don't run with debug turned on in production!
 app_name = os.environ.get("HEROKU_APP_NAME")
-BASE_URL = "https://c6bb6ead.ngrok.io"
+BASE_URL = "https://abb829fb.ngrok.io"
 DEBUG = True
 
 BASE_HREF = "/"
@@ -42,10 +42,10 @@ ALLOWED_HOSTS = ['*', '{}.herokuapp.com'.format(app_name)]
 
 DEV_ENV = os.environ.get('ENV', 'DEV')
 if DEV_ENV=="DEV":
-    SURVEYMONKEY_CLIENT_ID = "lkE_cJOzRV6j0B9bPLaJug"
-    SURVEYMONKEY_CLIENT_SECRET = "65085943951230993449921484314018791204"
-    SURVEYMONKEY_VERIFICATION_TOKEN = "pd45cmph4w8I7hrPUIUPin5-u9vMuWm1PDChgAoHQkTyHndCqtT3224Rcn1582NIqaJNNdIDsByaJOFXojIbXKwFkp35e5yFdhCSHefGfoFgukpxrNsIjVakiSXvxmLk"
-    BASE_URL = "https://c6bb6ead.ngrok.io"
+    SURVEYMONKEY_CLIENT_ID = ""
+    SURVEYMONKEY_CLIENT_SECRET = ""
+    SURVEYMONKEY_VERIFICATION_TOKEN = ""
+    BASE_URL = "https://abb829fb.ngrok.io"
     SITE_DOMAIN_URL = "ngrok.io"
 
 elif DEV_ENV=="HEROKU":
@@ -194,7 +194,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_URL = ('web/static/')
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'web/static/')
-#Comment
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+# STATIC_URL = ('web/static/')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'web/static/')

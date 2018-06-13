@@ -1,5 +1,4 @@
 from django.urls import path
-from django.conf.urls import include
 from .views import sm_redirecturl, request_yellowant_oauth_code , yellowant_redirecturl, yellowant_api, responsewebhook
 from django.conf.urls import url
 
