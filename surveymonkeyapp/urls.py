@@ -18,14 +18,16 @@ from django.urls import path
 from django.conf.urls import include
 from lib.records import urls as records_urls
 from lib.web import urls as web_urls
-from lib.records.views import integrate_app_account
+from lib.records.views import integrate_app_account, request_yellowant_oauth_code, yellowant_redirecturl, sm_redirecturl, yellowant_api
 
 
 urlpatterns = [
+
     path('admin/', admin.site.urls),
-    path("surveymonkeyauthurl/", include(records_urls)),
-    path("redirecturl/", include(records_urls)),
-    path("yellowantauthurl/", include(records_urls)),
+    path("redirecturl/", yellowant_redirecturl),
+    path("sm_redirecturl/", sm_redirecturl, name="surveymonkey-auth-redirect"),
+    path("yellowantauthurl/", request_yellowant_oauth_code),
+    path("yellowant-api/", yellowant_api, name="yellowant-api"),
     path("integrate_app", integrate_app_account),
     path("webhook_receiver/", include(records_urls)),
     path('', include(web_urls))

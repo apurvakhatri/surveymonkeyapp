@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY','($g%68la(r_u!0i9h^=cv^e(3$2tj^tp_#%s$m
 
 # SECURITY WARNING: don't run with debug turned on in production!
 app_name = os.environ.get("HEROKU_APP_NAME")
-BASE_URL = "https://8c3ab50d.ngrok.io"
+BASE_URL = "https://8c3ab50d.ngrok.io/"
 DEBUG = True
 
 BASE_HREF = "/"
@@ -42,10 +42,10 @@ ALLOWED_HOSTS = ['*', '{}.herokuapp.com'.format(app_name)]
 
 DEV_ENV = os.environ.get('ENV', 'DEV')
 if DEV_ENV=="DEV":
-    SURVEYMONKEY_CLIENT_ID = ""
-    SURVEYMONKEY_CLIENT_SECRET = ""
-    SURVEYMONKEY_VERIFICATION_TOKEN = ""
-    BASE_URL = "https://abb829fb.ngrok.io"
+    SURVEYMONKEY_CLIENT_ID = "lkE_cJOzRV6j0B9bPLaJug"
+    SURVEYMONKEY_CLIENT_SECRET = "65085943951230993449921484314018791204"
+    SURVEYMONKEY_VERIFICATION_TOKEN = "pd45cmph4w8I7hrPUIUPin5-u9vMuWm1PDChgAoHQkTyHndCqtT3224Rcn1582NIqaJNNdIDsByaJOFXojIbXKwFkp35e5yFdhCSHefGfoFgukpxrNsIjVakiSXvxmLk"
+    BASE_URL = "https://8c3ab50d.ngrok.io/"
     SITE_DOMAIN_URL = "ngrok.io"
 
 elif DEV_ENV=="HEROKU":
@@ -63,7 +63,7 @@ SURVEYMONKEY_OUTH_URL = "https://api.surveymonkey.com/oauth/authorize/"
 # URL to receive oauth2 codes from SM for user authentication. As a developer, you need to provide
 # this URL in the SM
 # developer console so that SM knows exactly where to send the oauth2 codes
-SURVEYMONKEY_REDIRECT_URL = BASE_URL + "/redirecturl/redirecturl/"
+SURVEYMONKEY_REDIRECT_URL = BASE_URL + "sm_redirecturl/"
 
 YELLOWANT_OAUTH_URL = "https://www.yellowant.com/api/oauth2/authorize/"
 
@@ -83,7 +83,7 @@ YELLOWANT_VERIFICATION_TOKEN = str(data_json['verification_token'])
 # URL to receive oauth2 codes from YA for user authentication. As a developer, you need to provide
 # this URL in the YA
 # developer console so that YA knows exactly where to send the oauth2 codes.
-YELLOWANT_REDIRECT_URL = BASE_URL + "/redirecturl/yellowant_redirecturl/"
+YELLOWANT_REDIRECT_URL = BASE_URL + "redirecturl/"
 
 # Application definition
 

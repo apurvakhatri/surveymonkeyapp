@@ -39,6 +39,11 @@ def request_yellowant_oauth_code(request):
     Note that we are passing state, this app's client id,
     oauth response type as code, and the url to return the oauth2 code at.
     """ #pylint: disable=pointless-string-statement
+    print("{}?state={}&client_id={}&response_type=code&redirect_url={}".format(settings.YELLOWANT_OAUTH_URL,
+                                                                             state,
+                                                                             settings.YELLOWANT_CLIENT_ID,
+                                                                             settings.YELLOWANT_REDIRECT_URL)
+          )
     return HttpResponseRedirect(
         "{}?state={}&client_id={}&response_type=code&redirect_url={}".format(settings.YELLOWANT_OAUTH_URL,
                                                                              state,
@@ -46,7 +51,6 @@ def request_yellowant_oauth_code(request):
                                                                              settings.YELLOWANT_REDIRECT_URL)
     )
 
-@csrf_exempt
 def yellowant_redirecturl(request):
     """Receive the oauth2 code from YA to generate a new user integration
 
@@ -62,7 +66,10 @@ def yellowant_redirecturl(request):
     code = request.GET.get('code')
     state = request.GET.get("state")
     yellowant_redirect_state = YellowAntRedirectState.objects.get(state=state)
+    print(code)
+    print(yellowant_redirect_state)
     user = yellowant_redirect_state.user
+    print(settings.YELLOWANT_REDIRECT_URL)
 
     # initialize the YA SDK client with your application credentials
     print(user)
