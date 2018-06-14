@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY','($g%68la(r_u!0i9h^=cv^e(3$2tj^tp_#%s$m
 
 # SECURITY WARNING: don't run with debug turned on in production!
 app_name = os.environ.get("HEROKU_APP_NAME")
-BASE_URL = "https://abb829fb.ngrok.io"
+BASE_URL = "https://8c3ab50d.ngrok.io"
 DEBUG = True
 
 BASE_HREF = "/"
