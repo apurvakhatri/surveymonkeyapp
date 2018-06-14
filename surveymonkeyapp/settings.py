@@ -34,7 +34,7 @@ app_name = os.environ.get("HEROKU_APP_NAME")
 BASE_URL = "https://8c3ab50d.ngrok.io"
 DEBUG = True
 
-BASE_HREF = "/account/"
+BASE_HREF = "/"
 SITE_PROTOCOL = "https://"
 
 ALLOWED_HOSTS = ['*', '{}.herokuapp.com'.format(app_name)]
